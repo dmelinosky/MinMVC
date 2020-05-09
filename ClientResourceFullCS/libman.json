@@ -18,11 +18,6 @@
       "files": [ "jquery.validate.unobtrusive.min.js" ]
     },
     {
-      "library": "modernizr@2.8.3",
-      "destination": "wwwroot/js/",
-      "files": [ "modernizr.min.js" ]
-    },
-    {
       "library": "twitter-bootstrap@3.4.1",
       "destination": "wwwroot/lib/bootstrap/"
     }
