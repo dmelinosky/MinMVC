@@ -1,13 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Diagnostics;
 using System.Web.Mvc;
 
 namespace ClientResourceFullCS.Controllers
 {
     public class HomeController : Controller
     {
+        public HomeController(TestInjection test)
+        {
+            Debug.Assert(test != null);
+        }
+
         public ActionResult Index()
         {
             return View();
