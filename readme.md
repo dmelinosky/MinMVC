@@ -55,6 +55,15 @@ In branch 6 I'm attempting to add Applicaiton Insights overall and to the ILogge
 [AppInsights Docs in Azure Monitoring](https://docs.microsoft.com/en-us/azure/azure-monitor/app/app-insights-overview)
 
 
+#### Health Checks
+
+In branch 7 I'm adding health checks.  Came up with the idea while browsing the Extensions on Nuget.  It looks like adding the health checks to the service collection is the same in core or full framework, but there is not extension method to create the endpoint in full so you have to create it yourself.
+
+##### Helpful Links
+
+[Using HealthChecks, an old core verion but helpful](https://scottsauber.com/2017/05/22/using-the-microsoft-aspnetcore-healthchecks-package/)
+
+
 
 #### Trouble along the way
 

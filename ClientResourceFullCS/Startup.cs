@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Xml;
+using ClientResourceFullCS.Controllers;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -59,6 +60,8 @@ namespace ClientResourceFullCS
             DependencyResolver.SetResolver(resolver);
 
             ///////////////////////////////////////////
+            ///
+
         }
 
         private static IConfigurationBuilder AddConfigurationProviders(ConfigurationBuilder builder)
@@ -86,6 +89,9 @@ namespace ClientResourceFullCS
                 builder.AddAzureWebAppDiagnostics();
                 builder.AddApplicationInsights();
             });
+
+            services.AddHealthChecks()
+                .AddCheck<ExampleHealthCheck>("example_health_check");
 
             return services;
         }
