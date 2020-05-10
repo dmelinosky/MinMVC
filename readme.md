@@ -40,6 +40,20 @@ In branch 5 I'm attempting to add the Logging extension to the 4.7.2 project.
 
 [Potentially helpful](https://stackoverflow.com/questions/41414796/how-to-get-microsoft-extensions-loggingt-in-console-application-using-serilog)
 
+#### Application Insights
+
+In branch 6 I'm attempting to add Applicaiton Insights overall and to the ILogger interface.
+
+##### Helpful Links
+
+[Question on stack overflow](https://stackoverflow.com/questions/45022693/using-application-insights-with-iloggerfactory#45035164)
+
+[Provider on Nuget](https://www.nuget.org/packages/Microsoft.Extensions.Logging.ApplicationInsights)
+
+[MSDN Docs - AppInsights for ILogger](https://docs.microsoft.com/en-us/azure/azure-monitor/app/ilogger)
+
+
+
 #### Trouble along the way
 
 ##### Problems and Solutions
