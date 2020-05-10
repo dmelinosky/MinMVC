@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.Routing;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Owin;
 using Owin;
@@ -15,32 +16,75 @@ namespace ClientResourceFullCS
     {
         public void Configuration(IAppBuilder app)
         {
-            // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=316888
-
+            ///////////////////////////////////////////
+            // Some old MVC stuffs
             AreaRegistration.RegisterAllAreas();
 
             RegisterGlobalFilters(GlobalFilters.Filters);
+
             RegisterRoutes(RouteTable.Routes);
 
-            var services = new ServiceCollection();
+            ///////////////////////////////////////////
 
+
+
+
+
+            ///////////////////////////////////////////
+            // New Configuration stuffs
+
+            var builder = new ConfigurationBuilder();
+
+            AddConfigurationProviders(builder);
+
+            IConfiguration configuration = builder.Build();
+
+            ///////////////////////////////////////////
+
+
+
+            ///////////////////////////////////////////
+            // Dependency injection stuffs
+
+            var services = new ServiceCollection();
+            
+            services.AddSingleton<IConfiguration>(configuration);
+
+            ConfigureServices(services);
+            
+            var resolver = new MyDependencyResolver(services.BuildServiceProvider());
+
+            DependencyResolver.SetResolver(resolver);
+
+            ///////////////////////////////////////////
+        }
+
+        private static IConfigurationBuilder AddConfigurationProviders(ConfigurationBuilder builder)
+        {
+            return builder
+                .AddJsonFile("Config/appsettings.json")
+                .AddEnvironmentVariables()
+                .AddJsonFile("Config/config.json", optional: true)
+                .AddJsonFile("Config/secrets.json", optional: true);
+        }
+
+        private static IServiceCollection ConfigureServices(IServiceCollection services)
+        {
             services.AddTransient<TestInjection>();
 
             services.AddControllersAsServices(typeof(Startup).Assembly.GetExportedTypes()
                 .Where(t => !t.IsAbstract && !t.IsGenericTypeDefinition)
                 .Where(t => typeof(IController).IsAssignableFrom(t) || t.Name.EndsWith("Controller", StringComparison.OrdinalIgnoreCase)));
 
-            var resolver = new MyDependencyResolver(services.BuildServiceProvider());
-
-            DependencyResolver.SetResolver(resolver);
+            return services;
         }
 
-        public static void RegisterGlobalFilters(GlobalFilterCollection filters)
+        private static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new HandleErrorAttribute());
         }
 
-        public static void RegisterRoutes(RouteCollection routes)
+        private static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 

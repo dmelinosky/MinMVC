@@ -1,0 +1,47 @@
+﻿@model ClientResourceFullCS.Controllers.ConfigModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<div>
+    <h4>ConfigModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RootLevel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RootLevel)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MultiLevel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MultiLevel)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SecretValue)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SecretValue)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EnvVar)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EnvVar)
+        </dd>
+
+    </dl>
+</div>
