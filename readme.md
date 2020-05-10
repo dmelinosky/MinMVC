@@ -52,6 +52,8 @@ In branch 6 I'm attempting to add Applicaiton Insights overall and to the ILogge
 
 [MSDN Docs - AppInsights for ILogger](https://docs.microsoft.com/en-us/azure/azure-monitor/app/ilogger)
 
+[AppInsights Docs in Azure Monitoring](https://docs.microsoft.com/en-us/azure/azure-monitor/app/app-insights-overview)
+
 
 
 #### Trouble along the way
