@@ -1,0 +1,71 @@
+﻿@model ClientResourceFullCS.Controllers.ConfigModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<div>
+    <h4>ConfigModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Root)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Root)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Nested)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nested)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Secret)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Secret)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EnvVar)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EnvVar)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Legacy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Legacy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LegacyOverride)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LegacyOverride)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LegacyOverride2)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LegacyOverride2)
+        </dd>
+
+    </dl>
+</div>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.Routing;
+using System.Xml;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Owin;
@@ -62,10 +63,12 @@ namespace ClientResourceFullCS
         private static IConfigurationBuilder AddConfigurationProviders(ConfigurationBuilder builder)
         {
             return builder
+                .Add(new LegacyConfigurationProvider())
                 .AddJsonFile("Config/appsettings.json")
                 .AddEnvironmentVariables()
                 .AddJsonFile("Config/config.json", optional: true)
-                .AddJsonFile("Config/secrets.json", optional: true);
+                .AddJsonFile("Config/secrets.json", optional: true)
+                .Add(new FullToCoreUserSecretsConfigurationProvider("86D05AB2-7349-431F-9A3E-7C2B60BA6A31"));
         }
 
         private static IServiceCollection ConfigureServices(IServiceCollection services)
@@ -132,5 +135,95 @@ namespace ClientResourceFullCS
     public class TestInjection
     {
         public string Hello { get; set; }
+    }
+
+    public class LegacyConfigurationProvider : ConfigurationProvider, IConfigurationSource
+    {
+        public override void Load()
+        {
+            foreach (System.Configuration.ConnectionStringSettings connectionString in System.Configuration.ConfigurationManager.ConnectionStrings)
+            {
+                Data.Add($"ConnectionStrings:{connectionString.Name}", connectionString.ConnectionString);
+            }
+
+            foreach (var settingKey in System.Configuration.ConfigurationManager.AppSettings.AllKeys)
+            {
+                Data.Add(settingKey, System.Configuration.ConfigurationManager.AppSettings[settingKey]);
+            }
+        }
+
+        public IConfigurationProvider Build(IConfigurationBuilder builder)
+        {
+            return this;
+        }
+    }
+
+    public class FullToCoreUserSecretsConfigurationProvider : ConfigurationProvider, IConfigurationSource
+    {
+        private readonly string userSecretsId;
+
+        public FullToCoreUserSecretsConfigurationProvider(string userSecretsId)
+        {
+            this.userSecretsId = userSecretsId ?? throw new ArgumentNullException(nameof(userSecretsId));
+        }
+
+        public override void Load()
+        {
+            string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+
+            if (string.IsNullOrWhiteSpace(appDataPath))
+            {
+                return;
+            }
+
+            string file = $"{appDataPath}\\Microsoft\\UserSecrets\\{userSecretsId}\\secrets.xml";
+
+            XmlDocument doc = new XmlDocument();
+
+            try
+            {
+                doc.Load(file);
+            }
+            catch
+            {
+                return;
+            }
+
+            XmlNode node;
+
+            try
+            {
+                node = doc.DocumentElement.SelectSingleNode("/root/secrets");
+            }
+            catch
+            {
+                return;
+            }
+            
+
+            if (node == null)
+            {
+                return;
+            }
+
+            foreach (XmlNode child in node.ChildNodes)
+            {
+                if (child.Attributes != null)
+                {
+                    string key = child.Attributes["name"]?.InnerText;
+                    string value = child.Attributes["value"]?.InnerText;
+
+                    if (!string.IsNullOrWhiteSpace(key) && !string.IsNullOrWhiteSpace(value))
+                    {
+                        Data.Add(key, value);
+                    }
+                }
+            }
+        }
+
+        public IConfigurationProvider Build(IConfigurationBuilder builder)
+        {
+            return this;
+        }
     }
 }
