@@ -18,7 +18,7 @@ namespace ClientResourceFullCS.Controllers
         // GET: Config
         public ActionResult Index()
         {
-            this.Logger.LogInformation("Configuration data controller method");
+            this.Logger.LogWarning("Configuration data controller method");
 
             var model = new ConfigModel();
 

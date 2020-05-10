@@ -84,6 +84,7 @@ namespace ClientResourceFullCS
             {
                 builder.AddDebug();
                 builder.AddAzureWebAppDiagnostics();
+                builder.AddApplicationInsights();
             });
 
             return services;
