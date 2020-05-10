@@ -6,6 +6,7 @@ using System.Web.Routing;
 using System.Xml;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Microsoft.Owin;
 using Owin;
 
@@ -78,6 +79,12 @@ namespace ClientResourceFullCS
             services.AddControllersAsServices(typeof(Startup).Assembly.GetExportedTypes()
                 .Where(t => !t.IsAbstract && !t.IsGenericTypeDefinition)
                 .Where(t => typeof(IController).IsAssignableFrom(t) || t.Name.EndsWith("Controller", StringComparison.OrdinalIgnoreCase)));
+
+            services.AddLogging(builder =>
+            {
+                builder.AddDebug();
+                builder.AddAzureWebAppDiagnostics();
+            });
 
             return services;
         }

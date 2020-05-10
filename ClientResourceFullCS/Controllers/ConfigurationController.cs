@@ -1,20 +1,25 @@
 ﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using System.Web.Mvc;
 
 namespace ClientResourceFullCS.Controllers
 {
     public class ConfigurationController : Controller
     {
-        public ConfigurationController(IConfiguration configuration)
+        public ConfigurationController(IConfiguration configuration, ILogger<ConfigurationController> logger)
         {
             this.Configuration = configuration;
+            this.Logger = logger;
         }
 
         public IConfiguration Configuration { get; }
+        public ILogger<ConfigurationController> Logger { get; }
 
         // GET: Config
         public ActionResult Index()
         {
+            this.Logger.LogInformation("Configuration data controller method");
+
             var model = new ConfigModel();
 
             model.Root = this.Configuration["Root"];

@@ -1,4 +1,12 @@
+#### Minimum ASP.Net project
+
+In branch 1 I'm removing all but the essentials to get a 4.7.2 project compiling.
+
+
+
 #### Dependency Injection
+
+In branch 2 I'm adding Dependency Injection to the 4.7.2 project.
 
 ##### Helpful Links
 
@@ -6,6 +14,8 @@
 
 
 #### Configuration
+
+In branch 3 I'm adding Configuration with json files and environment varirables.  In branch 4 I'm adding configuration with User Secrets.
 
 ##### Helpful Links
 
@@ -18,6 +28,17 @@
 [Net Core in Legacy Projects](https://benfoster.io/blog/net-core-configuration-legacy-projects)
 
 [MSDN Docs - Configuration Builders](https://docs.microsoft.com/en-us/aspnet/config-builder)
+
+
+#### Logging
+
+In branch 5 I'm attempting to add the Logging extension to the 4.7.2 project.
+
+##### Helpful Links
+
+[MSDN Docs - Logging in .NET Core and ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/logging/?view=aspnetcore-3.1)
+
+[Potentially helpful](https://stackoverflow.com/questions/41414796/how-to-get-microsoft-extensions-loggingt-in-console-application-using-serilog)
 
 #### Trouble along the way
 
