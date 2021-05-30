@@ -1,0 +1,16 @@
+﻿@model Microsoft.Extensions.Configuration.IConfiguration
+@using Microsoft.Extensions.Configuration
+
+@{
+    ViewBag.Title = "More";
+}
+
+<h2>More</h2>
+
+<dl class="dl-horizontal">
+    @foreach (var thing in Model.AsEnumerable().OrderBy(x => x.Key))
+    {
+        <dt>@thing.Key</dt>
+        <dd>@thing.Value</dd>
+    }
+</dl>

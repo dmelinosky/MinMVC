@@ -17,7 +17,7 @@ namespace ClientResourceFullCS.Controllers
         {
             var model = new ConfigModel();
 
-            model.Root = this.Configuration["Root"];
+            model.Root = this.Configuration["Root"]; 
             model.Nested = this.Configuration["Upper:Middle:Lower"];
             model.Secret = this.Configuration["Secret"];
             model.EnvVar = this.Configuration["EnvVar"];
@@ -26,6 +26,11 @@ namespace ClientResourceFullCS.Controllers
             model.LegacyOverride2 = this.Configuration["LegacyOverride2"];
 
             return View(model);
+        }
+
+        public ActionResult More()
+        {
+            return View(this.Configuration);
         }
     }
 
