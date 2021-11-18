@@ -50,11 +50,11 @@ namespace ClientResourceFullCS
             // Dependency injection stuffs
 
             var services = new ServiceCollection();
-            
+
             services.AddSingleton<IConfiguration>(configuration);
 
             ConfigureServices(services);
-            
+
             var resolver = new MyDependencyResolver(services.BuildServiceProvider());
 
             DependencyResolver.SetResolver(resolver);
@@ -112,7 +112,7 @@ namespace ClientResourceFullCS
             );
         }
     }
-  
+
     public class MyDependencyResolver : IDependencyResolver
     {
         protected IServiceProvider _serviceProvider;
@@ -213,7 +213,7 @@ namespace ClientResourceFullCS
             {
                 return;
             }
-            
+
 
             if (node == null)
             {
